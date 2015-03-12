@@ -1,4 +1,6 @@
 ﻿Module Module1
+    Dim textColor As ConsoleColor
+    Dim backGroundColor As ConsoleColor
 
     Class Profiles
         Public CName As String
@@ -50,7 +52,7 @@
         Pro1.Rate = Console.ReadLine
         Console.WriteLine()
         Console.WriteLine("Setup is Complete!")
-        Coms()
+
     End Sub
 
     Sub Menu()
@@ -60,8 +62,13 @@
         Do
 
             'Draw up the menu
-            Console.WriteLine("Welcome to Fun With Marks, the most mark calculating program")
+            Console.WriteLine("Welcome" & Pro1.COwner)
+            Console.WriteLine("-------------------------------------------------------")
+            Console.WriteLine("Total completed hours: (PLACEHOLDER)")
+            Console.WriteLine("Total income:          (PlACEHOLDER)")
+            Console.WriteLine("-------------------------------------------------------")
             Console.WriteLine()
+            Console.WriteLine("Select from one of the following menu options: ")
             Console.WriteLine(" (A) Add a booking")
             Console.WriteLine(" (B) View all incomplete bookings")
             Console.WriteLine(" (C) View all complete booking")
@@ -76,7 +83,7 @@
             Console.WriteLine(" (I) View business card")
             Console.WriteLine()
             Console.WriteLine(" (X) Exit")
-            Console.Write("Selection: ")
+
 
             'Get the selected letter from the user
             selection = Console.ReadKey(True).KeyChar.ToString.ToUpper
