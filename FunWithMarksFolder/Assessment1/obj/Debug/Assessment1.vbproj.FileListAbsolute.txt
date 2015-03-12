@@ -1,1 +1,10 @@
 H:\VB\Assessment1\Assessment1\bin\Debug\Assessment1.exe.config
+H:\VB\Fun With Lawns Old\FunWithMarksFolder\Assessment1\bin\Debug\Assessment1.exe.config
+H:\VB\Fun With Lawns Old\FunWithMarksFolder\Assessment1\bin\Debug\Assessment1.exe
+H:\VB\Fun With Lawns Old\FunWithMarksFolder\Assessment1\bin\Debug\Assessment1.pdb
+H:\VB\Fun With Lawns Old\FunWithMarksFolder\Assessment1\bin\Debug\Assessment1.xml
+H:\VB\Fun With Lawns Old\FunWithMarksFolder\Assessment1\obj\Debug\Assessment1.Resources.resources
+H:\VB\Fun With Lawns Old\FunWithMarksFolder\Assessment1\obj\Debug\Assessment1.vbproj.GenerateResource.Cache
+H:\VB\Fun With Lawns Old\FunWithMarksFolder\Assessment1\obj\Debug\Assessment1.exe
+H:\VB\Fun With Lawns Old\FunWithMarksFolder\Assessment1\obj\Debug\Assessment1.xml
+H:\VB\Fun With Lawns Old\FunWithMarksFolder\Assessment1\obj\Debug\Assessment1.pdb
