@@ -2,6 +2,15 @@
     Dim textColor As ConsoleColor
     Dim backGroundColor As ConsoleColor
 
+    Class Bookings
+        Public BName As String
+        Public BAddress As String
+        Public BNumber As String
+        Public BDate As Date
+        Public BTime As Date
+    End Class
+
+    Dim Booking As New List(Of Bookings)
     Class Profiles
         Public CName As String
         Public COwner As String
@@ -57,12 +66,14 @@
 
     Sub Menu()
 
+
         Dim selection As Char
 
         Do
 
             'Draw up the menu
-            Console.WriteLine("Welcome" & Pro1.COwner)
+            Console.Clear()
+            Console.WriteLine("Welcome " & Pro1.COwner)
             Console.WriteLine("-------------------------------------------------------")
             Console.WriteLine("Total completed hours: (PLACEHOLDER)")
             Console.WriteLine("Total income:          (PlACEHOLDER)")
@@ -115,6 +126,30 @@
 
     Sub AddBookings()
 
+        Dim newBooking As New Bookings
+
+        Console.Clear()
+        Console.WriteLine("Adding a new booking, enter the details below:")
+        Console.WriteLine()
+        Console.Write("Client's Name: ")
+        newBooking.BName = Console.ReadLine
+        Console.Write("Client's Address: ")
+        newBooking.BAddress = Console.ReadLine
+        Console.Write("Client's Phone Number: ")
+        newBooking.BNumber = Console.ReadLine
+        Console.Write("Date of the booking (dd/mm/yy): ")
+        newBooking.BDate = Console.ReadLine
+        Console.Write("Time of the booking (hh:mm am/pm): ")
+        newBooking.BTime = Console.ReadLine
+
+        Console.Clear()
+
+        Console.WriteLine("Booking details are as follows:")
+        Console.SetCursorPosition(9, 1)
+
+
+
+
     End Sub
 
     Sub AllIncomplete()
@@ -154,6 +189,43 @@
         Startup()
         ProfileSetup()
         Menu()
+    End Sub
+
+    Sub SaveCompany()
+
+        'Save the students to a text file
+        FileOpen(1, "CompanyData.txt", OpenMode.Output)
+
+            'Fill the file
+        PrintLine(1, Pro1.CName)
+        PrintLine(1, Pro1.COwner)
+        PrintLine(1, Pro1.CNumber)
+        PrintLine(1, Pro1.CAddress)
+        PrintLine(1, Pro1.Rate)
+
+
+            FileClose(1)
+
+    End Sub
+
+    Sub SaveBookings()
+
+        'Save the Booking to a text file
+        FileOpen(2, "BookingData.txt", OpenMode.Output)
+
+        For Each Client In Booking
+
+            'Fill the file
+            PrintLine(1, Client.BName)
+            PrintLine(1, Client.BAddress)
+            PrintLine(1, Client.BNumber)
+            PrintLine(1, Client.BDate)
+            PrintLine(1, Client.BTime)
+
+        Next
+      
+        FileClose(2)
+
     End Sub
 
 End Module
