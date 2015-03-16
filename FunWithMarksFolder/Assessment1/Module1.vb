@@ -2,7 +2,7 @@
     Dim textColor As ConsoleColor
     Dim backGroundColor As ConsoleColor
 
-    Class Bookings
+    Class Booking
         Public BName As String
         Public BAddress As String
         Public BNumber As String
@@ -10,7 +10,7 @@
         Public BTime As Date
     End Class
 
-    Dim Booking As New List(Of Bookings)
+    Dim Bookings As New List(Of Booking)
     Class Profiles
         Public CName As String
         Public COwner As String
@@ -32,19 +32,18 @@
         Console.WriteLine("Press any key to continue...")
         Console.ReadKey(True)
 
-        'Change Later for Profiles
-        Console.Clear()
-        Console.WriteLine("No company information has been found, We'll set up a profile before we begin.")
-        Console.WriteLine()
-        Console.WriteLine("Press any key to continue...")
-        Console.ReadKey(True)
-
-
     End Sub
 
     Sub ProfileSetup()
 
         Console.Clear()
+
+        'Tells user of no data
+        Console.Clear()
+        Console.WriteLine("No company information has been found, We'll set up a profile before we begin.")
+        Console.WriteLine()
+        Console.WriteLine("Press any key to continue...")
+        Console.ReadKey(True)
 
         'Setting Up the profile
         Console.WriteLine("Here you need to enter the details for your new company profile.")
@@ -71,6 +70,9 @@
 
         Do
 
+            'Save company data
+            SaveCompany()
+
             'Draw up the menu
             Console.Clear()
             Console.WriteLine("Welcome " & Pro1.COwner)
@@ -80,6 +82,7 @@
             Console.WriteLine("-------------------------------------------------------")
             Console.WriteLine()
             Console.WriteLine("Select from one of the following menu options: ")
+            Console.WriteLine()
             Console.WriteLine(" (A) Add a booking")
             Console.WriteLine(" (B) View all incomplete bookings")
             Console.WriteLine(" (C) View all complete booking")
@@ -126,8 +129,12 @@
 
     Sub AddBookings()
 
-        Dim newBooking As New Bookings
+        Dim x As String
 
+        'Gets the booking
+        Dim newBooking As New Booking
+
+        'Adds a booking
         Console.Clear()
         Console.WriteLine("Adding a new booking, enter the details below:")
         Console.WriteLine()
@@ -144,50 +151,104 @@
 
         Console.Clear()
 
+        'Confirms the booking
         Console.WriteLine("Booking details are as follows:")
         Console.SetCursorPosition(9, 1)
+        Console.WriteLine("Name: " & newBooking.BName)
+        Console.SetCursorPosition(9, 2)
+        Console.WriteLine("Address: " & newBooking.BAddress)
+        Console.SetCursorPosition(9, 3)
+        Console.WriteLine("Phone number: " & newBooking.BNumber)
+        Console.SetCursorPosition(9, 4)
+        Console.WriteLine("Date: " & newBooking.BDate)
+        Console.SetCursorPosition(9, 5)
+        Console.WriteLine("Time: " & newBooking.BTime)
+        Console.WriteLine()
+        Console.WriteLine("Are these details correct (y/n)?")
+        x = Console.ReadKey(True).KeyChar
 
+        If x = "y" Then
 
+            Console.WriteLine("Booking added!")
+            SaveBookings()
+
+        ElseIf x = "n" Then
+
+            Console.WriteLine("Booking cancelled.")
+
+        End If
+
+        Console.WriteLine()
+        Console.WriteLine("Press any key to continue...")
+        Console.ReadKey(True)
 
 
     End Sub
 
     Sub AllIncomplete()
 
+        Console.Clear()
+        Console.WriteLine("View incomplete jobs")
+        Console.WriteLine()
+        Console.WriteLine("{0,-27} {1,-22} {2,-22}", "Client's Name", "Date", "Time")
+        Console.WriteLine("-------------------------------------------------------")
+        Console.ReadLine()
+
     End Sub
 
     Sub AllComplete()
+
+        Console.Clear()
 
     End Sub
 
     Sub SevenDaysIncomplete()
 
+        Console.Clear()
+
     End Sub
 
     Sub ViewIncomplete()
+
+        Console.Clear()
 
     End Sub
 
     Sub EditIncomplete()
 
+        Console.Clear()
+
     End Sub
 
     Sub RemoveBooking()
+
+        Console.Clear()
 
     End Sub
 
     Sub CompleteBooking()
 
+        Console.Clear()
+
     End Sub
 
     Sub BusinessCard()
+
+        Console.Clear()
 
     End Sub
 
     Sub Main()
 
+
         Startup()
-        ProfileSetup()
+
+        If IO.File.Exists("CompanyData.txt") = False Then
+            ProfileSetup()
+        Else
+            LoadCompany()
+        End If
+
         Menu()
     End Sub
 
@@ -213,7 +274,7 @@
         'Save the Booking to a text file
         FileOpen(2, "BookingData.txt", OpenMode.Output)
 
-        For Each Client In Booking
+        For Each Client In Bookings
 
             'Fill the file
             PrintLine(1, Client.BName)
@@ -225,6 +286,63 @@
         Next
       
         FileClose(2)
+
+    End Sub
+
+    Sub LoadCompany()
+
+        'Check if the file exists
+        If IO.File.Exists("CompanyData.txt") Then
+
+            'Open the file for reading
+            FileOpen(1, "CompanyData.txt", OpenMode.Input)
+
+
+
+
+
+            Pro1.CName = LineInput(1)
+            Pro1.COwner = LineInput(1)
+            Pro1.CNumber = LineInput(1)
+            Pro1.CAddress = LineInput(1)
+            Pro1.Rate = LineInput(1)
+
+
+
+            'Close our file
+            FileClose(1)
+
+        End If
+
+    End Sub
+
+    Sub LoadBookings()
+
+        'Check if the file exists
+        If IO.File.Exists("BookingData.txt") Then
+
+            'Open the file for reading
+            FileOpen(1, "BookingData.txt", OpenMode.Input)
+
+            'While we are not at the end of file
+            While Not EOF(1)
+
+                Dim newBooking As New Booking
+
+                newBooking.BName = LineInput(1)
+                newBooking.BAddress = LineInput(1)
+                newBooking.BNumber = LineInput(1)
+                newBooking.BDate = LineInput(1)
+                newBooking.BTime = LineInput(1)
+
+                Bookings.Add(newBooking)
+
+            End While
+
+            'Close our file
+            FileClose(1)
+
+        End If
 
     End Sub
 
