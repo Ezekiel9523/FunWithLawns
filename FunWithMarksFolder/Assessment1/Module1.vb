@@ -10,6 +10,8 @@
         Public BTime As Date
     End Class
 
+    Public CompleteHours As Integer
+
     Dim Bookings As New List(Of Booking)
     Class Profiles
         Public CName As String
@@ -21,6 +23,19 @@
 
     Dim Pro1 As New Profiles
 
+    Function GetBookings()
+
+        'Ask them for the student they want
+        For i = 0 To Bookings.Count - 1
+
+            Console.WriteLine("{0,-5} {1,-25} {2,-20} {3,-20}", i, Bookings(i).BName, Bookings(i).BDate, Bookings(i).BTime)
+
+        Next
+
+
+    End Function
+
+    'Finished
     Sub Startup()
 
         'Startup
@@ -34,6 +49,7 @@
 
     End Sub
 
+    'Finished
     Sub ProfileSetup()
 
         Console.Clear()
@@ -53,7 +69,7 @@
         Console.Write("Company Owner's Name: ")
         Pro1.COwner = Console.ReadLine
         Console.Write("Company Contact number: ")
-        Pro1.CNumber = Console.readline
+        Pro1.CNumber = Console.ReadLine
         Console.Write("Company Address: ")
         Pro1.CAddress = Console.ReadLine
         Console.Write("Company Hourly Rate: ")
@@ -63,8 +79,10 @@
 
     End Sub
 
+    'Finished
     Sub Menu()
 
+        Dim Pay As Double = Pro1.Rate * CompleteHours
 
         Dim selection As Char
 
@@ -77,8 +95,8 @@
             Console.Clear()
             Console.WriteLine("Welcome " & Pro1.COwner)
             Console.WriteLine("-------------------------------------------------------")
-            Console.WriteLine("Total completed hours: (PLACEHOLDER)")
-            Console.WriteLine("Total income:          (PlACEHOLDER)")
+            Console.WriteLine("Total completed hours: " & CompleteHours)
+            Console.WriteLine("Total income:         $" & Pay)
             Console.WriteLine("-------------------------------------------------------")
             Console.WriteLine()
             Console.WriteLine("Select from one of the following menu options: ")
@@ -127,6 +145,7 @@
 
     End Sub
 
+    'Finished
     Sub AddBookings()
 
         Dim x As String
@@ -190,8 +209,12 @@
         Console.Clear()
         Console.WriteLine("View incomplete jobs")
         Console.WriteLine()
-        Console.WriteLine("{0,-27} {1,-22} {2,-22}", "Client's Name", "Date", "Time")
-        Console.WriteLine("-------------------------------------------------------")
+        Console.WriteLine("{0,-25} {1,-20} {2,-20}", "Client's Name", "Date", "Time")
+        Console.WriteLine("----------------------------------------------------------------------")
+
+
+
+
         Console.ReadLine()
 
     End Sub
@@ -232,12 +255,45 @@
 
     End Sub
 
+    'Finished
     Sub BusinessCard()
 
         Console.Clear()
 
+        Console.SetCursorPosition(13, 4)
+        Console.WriteLine("/============================================\")
+        Console.SetCursorPosition(13, 5)
+        Console.WriteLine("|  " & Pro1.CName)
+        Console.SetCursorPosition(13, 6)
+        Console.WriteLine("|                                            |")
+        Console.SetCursorPosition(13, 7)
+        Console.WriteLine("|  Owner: " & Pro1.COwner)
+        Console.SetCursorPosition(13, 8)
+        Console.WriteLine("|                                            |")
+        Console.SetCursorPosition(13, 9)
+        Console.WriteLine("|                                            |")
+        Console.SetCursorPosition(13, 10)
+        Console.WriteLine("|  Phone Number: " & Pro1.CNumber)
+        Console.SetCursorPosition(13, 11)
+        Console.WriteLine("|  Address: " & Pro1.CAddress)
+        Console.SetCursorPosition(13, 12)
+        Console.WriteLine("|                                            |")
+        Console.SetCursorPosition(13, 13)
+        Console.WriteLine("\============================================/")
+        Console.SetCursorPosition(58, 5)
+        Console.WriteLine("|")
+        Console.SetCursorPosition(58, 7)
+        Console.WriteLine("|")
+        Console.SetCursorPosition(58, 10)
+        Console.WriteLine("|")
+        Console.SetCursorPosition(58, 11)
+        Console.WriteLine("|")
+
+        Console.ReadLine()
+
     End Sub
 
+    'Finished
     Sub Main()
 
 
@@ -252,12 +308,13 @@
         Menu()
     End Sub
 
+    'Finished
     Sub SaveCompany()
 
         'Save the students to a text file
         FileOpen(1, "CompanyData.txt", OpenMode.Output)
 
-            'Fill the file
+        'Fill the file
         PrintLine(1, Pro1.CName)
         PrintLine(1, Pro1.COwner)
         PrintLine(1, Pro1.CNumber)
@@ -265,10 +322,11 @@
         PrintLine(1, Pro1.Rate)
 
 
-            FileClose(1)
+        FileClose(1)
 
     End Sub
 
+    'Finished
     Sub SaveBookings()
 
         'Save the Booking to a text file
@@ -284,11 +342,12 @@
             PrintLine(1, Client.BTime)
 
         Next
-      
+
         FileClose(2)
 
     End Sub
 
+    'Finished
     Sub LoadCompany()
 
         'Check if the file exists
@@ -316,6 +375,7 @@
 
     End Sub
 
+    'Finished
     Sub LoadBookings()
 
         'Check if the file exists
