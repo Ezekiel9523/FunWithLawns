@@ -8,6 +8,7 @@
         Public BNumber As String
         Public BDate As Date
         Public BTime As Date
+        Public BComplete As Boolean
     End Class
 
     Public CompleteHours As Integer
@@ -23,15 +24,36 @@
 
     Dim Pro1 As New Profiles
 
+    'Finished
     Function GetBookings()
 
-        'Ask them for the student they want
+
+
+
+        Dim index As Integer = 0
+
+        Console.WriteLine("Here's the Bookings currently in the program")
+        Console.WriteLine()
+        'Format a writeline into columns
+        ' {0,-5} = The First column, is the ID, has 5 spaces
+        ' {1,-20} = The Second column, is the Client's Name, has 20 spaces
+        ' {2,-20} = The Third column, is the Booking Date, has 25 spaces
+        ' {3,-20} = The Fourth column, is the Booking time, has 20 spaces
+        Console.WriteLine("{0,-5} {1,-25} {2,-20} {3,-20}", "ID", "Client's Name", "Date", "Time")
+
+        Console.WriteLine("============================================================")
+
+        'Ask them for the Booking they want
         For i = 0 To Bookings.Count - 1
 
-            Console.WriteLine("{0,-5} {1,-25} {2,-20} {3,-20}", i, Bookings(i).BName, Bookings(i).BDate, Bookings(i).BTime)
+            Console.WriteLine("{0,-5} {1,-25} {2,-20} {3,-20}", i, Bookings(i).BName, Bookings(i).BDate.ToShortDateString, Bookings(i).BTime.ToShortTimeString, Bookings(i).BTime)
 
         Next
 
+        Console.Write("Enter the index of the Booking: ")
+        index = Console.ReadLine()
+
+        Return index
 
     End Function
 
@@ -115,7 +137,8 @@
             Console.WriteLine(" (I) View business card")
             Console.WriteLine()
             Console.WriteLine(" (X) Exit")
-
+            SaveBookings()
+            SaveCompany()
 
             'Get the selected letter from the user
             selection = Console.ReadKey(True).KeyChar.ToString.ToUpper
@@ -185,9 +208,11 @@
         Console.WriteLine()
         Console.WriteLine("Are these details correct (y/n)?")
         x = Console.ReadKey(True).KeyChar
+        newBooking.BComplete = False
 
         If x = "y" Then
 
+            Bookings.Add(newBooking)
             Console.WriteLine("Booking added!")
             SaveBookings()
 
@@ -204,24 +229,66 @@
 
     End Sub
 
+    'Finished
     Sub AllIncomplete()
 
         Console.Clear()
-        Console.WriteLine("View incomplete jobs")
+        Console.WriteLine("Here's the Bookings currently in the program")
         Console.WriteLine()
-        Console.WriteLine("{0,-25} {1,-20} {2,-20}", "Client's Name", "Date", "Time")
-        Console.WriteLine("----------------------------------------------------------------------")
+        'Format a writeline into columns
+        ' {0,-5} = The First column, is the ID, has 5 spaces
+        ' {1,-20} = The Second column, is the Client's Name, has 20 spaces
+        ' {2,-20} = The Third column, is the Booking Date, has 25 spaces
+        ' {3,-20} = The Fourth column, is the Booking time, has 20 spaces
+        Console.WriteLine("{0,-5} {1,-25} {2,-20} {3,-20}", "ID", "Client's Name", "Date", "Time")
 
+        Console.WriteLine("============================================================")
 
+        'Ask them for the Booking they want
+        For i = 0 To Bookings.Count - 1
 
+            If Bookings(i).BComplete = False Then
+                Console.WriteLine("{0,-5} {1,-25} {2,-20} {3,-20}", i, Bookings(i).BName, Bookings(i).BDate.ToShortDateString, Bookings(i).BTime.ToShortTimeString)
+            End If
 
-        Console.ReadLine()
+        Next
+
+        Console.WriteLine()
+        Console.WriteLine("Press any key to continue...")
+
+        Console.ReadKey(True)
 
     End Sub
 
+    'Finished
     Sub AllComplete()
 
         Console.Clear()
+        Console.WriteLine("Here's the Bookings currently in the program")
+        Console.WriteLine()
+        'Format a writeline into columns
+        ' {0,-5} = The First column, is the ID, has 5 spaces
+        ' {1,-20} = The Second column, is the Client's Name, has 20 spaces
+        ' {2,-20} = The Third column, is the Booking Date, has 25 spaces
+        ' {3,-20} = The Fourth column, is the Booking time, has 20 spaces
+        Console.WriteLine("{0,-5} {1,-25} {2,-20} {3,-20}", "ID", "Client's Name", "Date", "Time")
+
+        Console.WriteLine("============================================================")
+
+        'Ask them for the Booking they want
+        For i = 0 To Bookings.Count - 1
+
+            If Bookings(i).BComplete = True Then
+                Console.WriteLine("{0,-5} {1,-25} {2,-20} {3,-20}", i, Bookings(i).BName, Bookings(i).BDate.ToShortDateString, Bookings(i).BTime.ToShortTimeString)
+            End If
+
+        Next
+
+        Console.WriteLine()
+        Console.WriteLine("Press any key to continue...")
+
+        Console.ReadKey(True)
+
 
     End Sub
 
@@ -231,9 +298,32 @@
 
     End Sub
 
+    'Finished
     Sub ViewIncomplete()
 
-        Console.Clear()
+        For i = 0 To Bookings.Count - 1
+
+            If Bookings(i).BComplete = False Then
+
+                Console.Clear()
+                Dim index As Integer = GetBookings()
+
+                Console.WriteLine()
+                Console.WriteLine("Here's the Booking!")
+
+                Console.WriteLine()
+                Console.WriteLine("Client's Name: " & Bookings(index).BName)
+                Console.WriteLine("Address: " & Bookings(index).BAddress)
+                Console.WriteLine("Phone Number: " & Bookings(index).BNumber)
+                Console.WriteLine("Booking Date: " & Bookings(index).BDate)
+                Console.WriteLine("Booking Time: " & Bookings(index).BTime)
+                Console.WriteLine()
+                Console.WriteLine("Press any key to continue...")
+                Console.ReadKey(True)
+
+                Console.Clear()
+            End If
+        Next
 
     End Sub
 
@@ -246,6 +336,20 @@
     Sub RemoveBooking()
 
         Console.Clear()
+
+        Console.WriteLine("Removing a Booking")
+        Dim index As Integer = GetBookings()
+
+        'Check the index is good
+        If index >= 0 And index < Bookings.Count Then
+            'Remove the booking they chose
+            Bookings.RemoveAt(index)
+
+        End If
+
+        Console.WriteLine("Booking removed!")
+        Console.ReadLine()
+
 
     End Sub
 
@@ -304,6 +408,7 @@
         Else
             LoadCompany()
         End If
+        LoadBookings()
 
         Menu()
     End Sub
@@ -335,11 +440,11 @@
         For Each Client In Bookings
 
             'Fill the file
-            PrintLine(1, Client.BName)
-            PrintLine(1, Client.BAddress)
-            PrintLine(1, Client.BNumber)
-            PrintLine(1, Client.BDate)
-            PrintLine(1, Client.BTime)
+            PrintLine(2, Client.BName)
+            PrintLine(2, Client.BAddress)
+            PrintLine(2, Client.BNumber)
+            PrintLine(2, Client.BDate)
+            PrintLine(2, Client.BTime)
 
         Next
 
