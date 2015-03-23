@@ -11,7 +11,7 @@
         Public BComplete As Boolean
     End Class
 
-    Public CompleteHours As Integer
+
 
     Dim Bookings As New List(Of Booking)
     Class Profiles
@@ -20,12 +20,13 @@
         Public CNumber As Integer
         Public CAddress As String
         Public Rate As Single
+        Public CompleteHours As Integer
     End Class
 
     Dim Pro1 As New Profiles
 
     'Finished
-    Function GetBookings()
+    Function GetBookings(complete As Boolean)
 
 
 
@@ -46,7 +47,11 @@
         'Ask them for the Booking they want
         For i = 0 To Bookings.Count - 1
 
-            Console.WriteLine("{0,-5} {1,-25} {2,-20} {3,-20}", i, Bookings(i).BName, Bookings(i).BDate.ToShortDateString, Bookings(i).BTime.ToShortTimeString, Bookings(i).BTime)
+            If Bookings(i).BComplete = complete Then
+
+                Console.WriteLine("{0,-5} {1,-25} {2,-20} {3,-20}", i, Bookings(i).BName, Bookings(i).BDate.ToShortDateString, Bookings(i).BTime.ToShortTimeString, Bookings(i).BTime)
+
+            End If
 
         Next
 
@@ -104,7 +109,7 @@
     'Finished
     Sub Menu()
 
-        Dim Pay As Double = Pro1.Rate * CompleteHours
+
 
         Dim selection As Char
 
@@ -112,12 +117,12 @@
 
             'Save company data
             SaveCompany()
-
+            Dim Pay As Double = Pro1.Rate * Pro1.CompleteHours
             'Draw up the menu
             Console.Clear()
             Console.WriteLine("Welcome " & Pro1.COwner)
             Console.WriteLine("-------------------------------------------------------")
-            Console.WriteLine("Total completed hours: " & CompleteHours)
+            Console.WriteLine("Total completed hours: " & Pro1.CompleteHours)
             Console.WriteLine("Total income:         $" & Pay)
             Console.WriteLine("-------------------------------------------------------")
             Console.WriteLine()
@@ -301,12 +306,14 @@
     'Finished
     Sub ViewIncomplete()
 
+        Console.Clear()
+
         For i = 0 To Bookings.Count - 1
 
             If Bookings(i).BComplete = False Then
 
                 Console.Clear()
-                Dim index As Integer = GetBookings()
+                Dim index As Integer = GetBookings(False)
 
                 Console.WriteLine()
                 Console.WriteLine("Here's the Booking!")
@@ -327,18 +334,72 @@
 
     End Sub
 
+    'Finished
     Sub EditIncomplete()
 
         Console.Clear()
+        Dim index As Integer = GetBookings(False)
+
+        Console.WriteLine()
+        Console.WriteLine("Here's the Booking!")
+
+        Console.WriteLine()
+        Console.WriteLine("Client's Name: " & Bookings(index).BName)
+        Console.WriteLine("Address: " & Bookings(index).BAddress)
+        Console.WriteLine("Phone Number: " & Bookings(index).BNumber)
+        Console.WriteLine("Booking Date: " & Bookings(index).BDate)
+        Console.WriteLine("Booking Time: " & Bookings(index).BTime)
+        Console.WriteLine()
+        Console.WriteLine("Press any key to continue...")
+        Console.ReadKey(True)
+
+
+        Console.WriteLine("To edit a booking, enter the details below, leave blank if unchanged.")
+        Console.WriteLine()
+        Console.Write("Client's Name: ")
+        Dim Name As String = Console.ReadLine
+        If Name <> "" Then
+            Bookings(index).BName = Name
+        End If
+
+        Console.Write("Client's Address: ")
+        Dim Address As String = Console.ReadLine
+        If Address <> "" Then
+            Bookings(index).BAddress = Address
+        End If
+
+        Console.Write("Client's Phone Number: ")
+        Dim Number As String = Console.ReadLine
+        If Number <> "" Then
+            Bookings(index).BNumber = Number
+        End If
+
+        Console.Write("Date of the booking (dd/mm/yy): ")
+        Dim DateB As String = Console.ReadLine
+        If DateB <> "" Then
+            Bookings(index).BDate = DateB
+        End If
+
+        Console.Write("Time of the booking (hh:mm am/pm): ")
+        Dim Time As String = Console.ReadLine
+        If Time <> "" Then
+            Bookings(index).BTime = Time
+        End If
+
+
+
+        Console.Clear()
+
 
     End Sub
 
+    'Finished
     Sub RemoveBooking()
 
         Console.Clear()
 
         Console.WriteLine("Removing a Booking")
-        Dim index As Integer = GetBookings()
+        Dim index As Integer = GetBookings(False)
 
         'Check the index is good
         If index >= 0 And index < Bookings.Count Then
@@ -353,9 +414,45 @@
 
     End Sub
 
+    'Finished
     Sub CompleteBooking()
 
+        Dim x As String
+
         Console.Clear()
+        Dim index As Integer = GetBookings(False)
+
+        Console.WriteLine()
+        Console.WriteLine("Here's the Booking!")
+
+        Console.WriteLine()
+        Console.WriteLine("Client's Name: " & Bookings(index).BName)
+        Console.WriteLine("Address: " & Bookings(index).BAddress)
+        Console.WriteLine("Phone Number: " & Bookings(index).BNumber)
+        Console.WriteLine("Booking Date: " & Bookings(index).BDate)
+        Console.WriteLine("Booking Time: " & Bookings(index).BTime)
+        Console.WriteLine()
+        Console.WriteLine("Are you sure you want to complete this booking (y/n)?")
+        x = Console.ReadKey(True).KeyChar
+
+        If x = "y" Then
+
+            Bookings(index).BComplete = True
+
+            Console.WriteLine("How many hours did it take to complete?")
+            Pro1.CompleteHours += Console.ReadLine
+
+        Else
+            Console.WriteLine("Cancelled.")
+            Console.WriteLine()
+            Console.WriteLine("Press any key to continue...")
+            Console.ReadKey(True)
+        End If
+
+        Console.Clear()
+
+
+
 
     End Sub
 
