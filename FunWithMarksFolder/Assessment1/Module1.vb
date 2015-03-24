@@ -11,9 +11,8 @@
         Public BComplete As Boolean
     End Class
 
-
-
     Dim Bookings As New List(Of Booking)
+
     Class Profiles
         Public CName As String
         Public COwner As String
@@ -24,6 +23,22 @@
     End Class
 
     Dim Pro1 As New Profiles
+
+    'Finished
+    Sub Loading()
+
+        Console.SetCursorPosition(35, 5)
+        Console.Write("Loading")
+        Threading.Thread.Sleep(500)
+        Console.Write(".")
+        Threading.Thread.Sleep(500)
+        Console.Write(".")
+        Threading.Thread.Sleep(500)
+        Console.Write(".")
+        Threading.Thread.Sleep(500)
+        Console.Clear()
+
+    End Sub
 
     'Finished
     Function GetBookings(complete As Boolean)
@@ -117,13 +132,17 @@
 
             'Save company data
             SaveCompany()
+
             Dim Pay As Double = Pro1.Rate * Pro1.CompleteHours
+
             'Draw up the menu
             Console.Clear()
             Console.WriteLine("Welcome " & Pro1.COwner)
             Console.WriteLine("-------------------------------------------------------")
+            Console.WriteLine("Local Clock: " & Now.ToString("dd/MM/yyyy H:mm tt"))
+            Console.WriteLine("-------------------------------------------------------")
             Console.WriteLine("Total completed hours: " & Pro1.CompleteHours)
-            Console.WriteLine("Total income:         $" & Pay)
+            Console.WriteLine("Total income:         " & FormatCurrency(Pay))
             Console.WriteLine("-------------------------------------------------------")
             Console.WriteLine()
             Console.WriteLine("Select from one of the following menu options: ")
@@ -140,6 +159,8 @@
             Console.WriteLine(" (H) Complete a booking")
             Console.WriteLine()
             Console.WriteLine(" (I) View business card")
+            Console.WriteLine()
+            Console.WriteLine(" (J) Edit Company Details")
             Console.WriteLine()
             Console.WriteLine(" (X) Exit")
             SaveBookings()
@@ -167,6 +188,8 @@
                     CompleteBooking()
                 Case "I"
                     BusinessCard()
+                Case "J"
+                    CompanyDetails()
             End Select
 
         Loop Until selection = "X"
@@ -297,9 +320,39 @@
 
     End Sub
 
+    'Finished
     Sub SevenDaysIncomplete()
 
+
         Console.Clear()
+        Console.WriteLine("Here's the Bookings currently in the program")
+        Console.WriteLine()
+        'Format a writeline into columns
+        ' {0,-5} = The First column, is the ID, has 5 spaces
+        ' {1,-20} = The Second column, is the Client's Name, has 20 spaces
+        ' {2,-20} = The Third column, is the Booking Date, has 25 spaces
+        ' {3,-20} = The Fourth column, is the Booking time, has 20 spaces
+        Console.WriteLine("{0,-5} {1,-25} {2,-20} {3,-20}", "ID", "Client's Name", "Date", "Time")
+
+        Console.WriteLine("============================================================")
+
+        'Ask them for the Booking they want
+        For i = 0 To Bookings.Count - 1
+
+            If Bookings(i).BComplete = False Then
+
+                If Bookings(i).BDate <= Now.AddDays(7) Then
+                    Console.WriteLine("{0,-5} {1,-25} {2,-20} {3,-20}", i, Bookings(i).BName, Bookings(i).BDate.ToShortDateString, Bookings(i).BTime.ToShortTimeString)
+                End If
+
+            End If
+
+        Next
+
+        Console.WriteLine()
+        Console.WriteLine("Press any key to continue...")
+
+        Console.ReadKey(True)
 
     End Sub
 
@@ -457,6 +510,61 @@
     End Sub
 
     'Finished
+    Sub CompanyDetails()
+
+        Console.Clear()
+
+        Console.WriteLine()
+        Console.WriteLine("Here's your Details")
+
+        Console.WriteLine()
+        Console.WriteLine("Company Name: " & Pro1.CName)
+        Console.WriteLine("Owner: " & Pro1.COwner)
+        Console.WriteLine("Phone Number: " & Pro1.CNumber)
+        Console.WriteLine("Company Address: " & Pro1.CAddress)
+        Console.WriteLine("Pay Rate: " & Pro1.Rate)
+        Console.WriteLine()
+        Console.WriteLine("Press any key to continue...")
+        Console.ReadKey(True)
+
+
+        Console.WriteLine("To edit, enter the details below, leave blank if unchanged.")
+        Console.WriteLine()
+        Console.Write("Company's Name: ")
+        Dim Name As String = Console.ReadLine
+        If Name <> "" Then
+            Pro1.CName = Name
+        End If
+
+        Console.Write("Company Owner: ")
+        Dim Owner As String = Console.ReadLine
+        If Owner <> "" Then
+            Pro1.COwner = Owner
+        End If
+
+        Console.Write("Company's Phone Number: ")
+        Dim Number As String = Console.ReadLine
+        If Number <> "" Then
+            Pro1.CNumber = Number
+        End If
+
+        Console.Write("Company's Address: ")
+        Dim Address As String = Console.ReadLine
+        If Address <> "" Then
+            Pro1.CAddress = Address
+        End If
+
+        Console.Write("Pay Rate: ")
+        Dim Rate As String = Console.ReadLine
+        If Rate <> "" Then
+            Pro1.Rate = Rate
+        End If
+
+        Console.Clear()
+
+    End Sub
+
+    'Finished
     Sub BusinessCard()
 
         Console.Clear()
@@ -497,7 +605,7 @@
     'Finished
     Sub Main()
 
-
+        Loading()
         Startup()
 
         If IO.File.Exists("CompanyData.txt") = False Then
