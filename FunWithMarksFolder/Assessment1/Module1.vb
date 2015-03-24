@@ -1,6 +1,5 @@
 ﻿Module Module1
-    Dim textColor As ConsoleColor
-    Dim backGroundColor As ConsoleColor
+    
 
     Class Booking
         Public BName As String
@@ -12,6 +11,15 @@
     End Class
 
     Dim Bookings As New List(Of Booking)
+
+    Class Option1
+        Public foreGroundColor As ConsoleColor
+        Public backGroundColor As ConsoleColor
+        Public forecolorselect As String
+        Public colorselect As String
+    End Class
+
+    Dim Op1 As New Option1
 
     Class Profiles
         Public CName As String
@@ -26,6 +34,12 @@
 
     'Finished
     Sub Loading()
+
+        LoadOptions()
+
+        Console.BackgroundColor = Op1.backGroundColor
+        Console.ForegroundColor = Op1.foreGroundColor
+        Console.Clear()
 
         Console.SetCursorPosition(35, 5)
         Console.Write("Loading")
@@ -141,46 +155,48 @@
             Console.SetCursorPosition(53, 1)
             Console.WriteLine("|")
             Console.SetCursorPosition(0, 1)
-            Console.WriteLine("|Welcome " & Pro1.COwner)
+            Console.WriteLine("| Welcome " & Pro1.COwner)
             Console.WriteLine("|----------------------------------------------------|")
             Console.SetCursorPosition(53, 3)
             Console.WriteLine("|")
             Console.SetCursorPosition(0, 3)
-            Console.WriteLine("|Local Clock: " & Now.ToString("dd/MM/yyyy H:mm tt"))
+            Console.WriteLine("| Local Clock: " & Now.ToString("dd/MM/yyyy H:mm tt"))
             Console.WriteLine("|----------------------------------------------------|")
             Console.SetCursorPosition(53, 5)
             Console.WriteLine("|")
             Console.SetCursorPosition(0, 5)
-            Console.WriteLine("|Total completed hours: " & Pro1.CompleteHours)
+            Console.WriteLine("| Total completed hours: " & Pro1.CompleteHours)
             Console.SetCursorPosition(53, 6)
             Console.WriteLine("|")
             Console.SetCursorPosition(0, 6)
-            Console.WriteLine("|Total income:         " & FormatCurrency(Pay))
+            Console.WriteLine("| Total income:         " & FormatCurrency(Pay))
             Console.WriteLine("|----------------------------------------------------|")
             Console.WriteLine("|                                                    |")
-            Console.WriteLine("|Select from one of the following menu options:      |")
+            Console.WriteLine("| Select from one of the following menu options:     |")
             Console.WriteLine("|                                                    |")
+            Console.WriteLine("|----------------------------------------------------|")
             Console.WriteLine("| (A) Add a booking                                  |")
             Console.WriteLine("| (B) View all incomplete bookings                   |")
             Console.WriteLine("| (C) View all complete booking                      |")
             Console.WriteLine("| (D) Check incomplete bookings for next 7 days      |")
-            Console.WriteLine("|                                                    |")
+            Console.WriteLine("|----------------------------------------------------|")
             Console.WriteLine("| (E) View incomplete booking details                |")
             Console.WriteLine("| (F) Edit incomplete booking details                |")
-            Console.WriteLine("|                                                    |")
+            Console.WriteLine("|----------------------------------------------------|")
             Console.WriteLine("| (G) Remove a booking                               |")
             Console.WriteLine("| (H) Complete a booking                             |")
-            Console.WriteLine("|                                                    |")
+            Console.WriteLine("|----------------------------------------------------|")
             Console.WriteLine("| (I) View business card                             |")
-            Console.WriteLine("|                                                    |")
-            Console.WriteLine("| (J) Edit Company Details                           |")
-            Console.WriteLine("|                                                    |")
+            Console.WriteLine("|----------------------------------------------------|")
+            Console.WriteLine("| (K) Options                                        |")
+            Console.WriteLine("|----------------------------------------------------|")
             Console.WriteLine("| (X) Exit                                           |")
             Console.WriteLine("======================================================")
 
 
             SaveBookings()
             SaveCompany()
+            SaveOptions()
 
             'Get the selected letter from the user
             selection = Console.ReadKey(True).KeyChar.ToString.ToUpper
@@ -206,6 +222,8 @@
                     BusinessCard()
                 Case "J"
                     CompanyDetails()
+                Case "K"
+                    Options()
             End Select
 
         Loop Until selection = "X"
@@ -619,6 +637,238 @@
     End Sub
 
     'Finished
+    Sub Options()
+
+        Dim selection As Char
+
+        Do
+
+
+            'Draw up the menu
+            Console.Clear()
+            Console.WriteLine("======================================================")
+            Console.WriteLine("|                                                    |")
+            Console.WriteLine("| Options:                                           |")
+            Console.WriteLine("|                                                    |")
+            Console.WriteLine("|----------------------------------------------------|")
+            Console.WriteLine("| (A) Edit Company Details                           |")
+            Console.WriteLine("| (B) BackGround Colour                              |")
+            Console.WriteLine("| (C) ForeGround Colour                              |")
+            Console.WriteLine("|----------------------------------------------------|")
+            Console.WriteLine("| (X) Back                                           |")
+            Console.WriteLine("======================================================")
+
+            'Get the selected letter from the user
+            selection = Console.ReadKey(True).KeyChar.ToString.ToUpper
+
+            Select Case selection
+                Case "A"
+                    CompanyDetails()
+                Case "B"
+                    ProgramBackGroundColour()
+                Case "C"
+                    ProgramForeGroundColour()
+            End Select
+
+        Loop Until selection = "X"
+
+
+        Menu()
+
+    End Sub
+
+    Sub ProgramForeGroundColour()
+
+        Dim selection As Char
+
+        Do
+
+
+            'Draw up the menu
+            Console.Clear()
+            Console.WriteLine("======================================================")
+            Console.WriteLine("|                                                    |")
+            Console.WriteLine("| ForeGround Colour                                  |")
+            Console.WriteLine("|----------------------------------------------------|")
+            Console.WriteLine("| Current Colour: " & Op1.colorselect)
+            Console.WriteLine("|----------------------------------------------------|")
+            Console.WriteLine("| (A) Black                                          |")
+            Console.WriteLine("| (B) Dark Blue                                      |")
+            Console.WriteLine("| (C) Dark Green                                     |")
+            Console.WriteLine("| (D) Dark Cyan                                      |")
+            Console.WriteLine("| (E) Dark Red                                       |")
+            Console.WriteLine("| (F) Dark Magenta                                   |")
+            Console.WriteLine("| (G) Dark Yellow                                    |")
+            Console.WriteLine("| (H) Grey                                           |")
+            Console.WriteLine("| (I) Dark Grey                                      |")
+            Console.WriteLine("| (J) Blue                                           |")
+            Console.WriteLine("| (K) Green                                          |")
+            Console.WriteLine("| (L) Cyan                                           |")
+            Console.WriteLine("| (M) Red                                            |")
+            Console.WriteLine("| (N) Magenta                                        |")
+            Console.WriteLine("| (O) Yellow                                         |")
+            Console.WriteLine("| (P) White                                          |")
+            Console.WriteLine("|----------------------------------------------------|")
+            Console.WriteLine("| (X) Back                                           |")
+            Console.WriteLine("======================================================")
+
+            'Get the selected letter from the user
+            selection = Console.ReadKey(True).KeyChar.ToString.ToUpper
+
+            Select Case selection
+                Case "A"
+                    Op1.foreGroundColor = ConsoleColor.Black
+                    Op1.colorselect = "Black"
+                Case "B"
+                    Op1.foreGroundColor = ConsoleColor.DarkBlue
+                    Op1.colorselect = "Dark Blue"
+                Case "C"
+                    Op1.foreGroundColor = ConsoleColor.DarkGreen
+                    Op1.colorselect = "Dark Green"
+                Case "D"
+                    Op1.foreGroundColor = ConsoleColor.DarkCyan
+                    Op1.colorselect = "Dark Cyan"
+                Case "E"
+                    Op1.foreGroundColor = ConsoleColor.DarkRed
+                    Op1.colorselect = "Dark Red"
+                Case "F"
+                    Op1.foreGroundColor = ConsoleColor.DarkMagenta
+                    Op1.colorselect = "Dark Magenta"
+                Case "G"
+                    Op1.foreGroundColor = ConsoleColor.DarkYellow
+                    Op1.colorselect = "Dark Yellow"
+                Case "H"
+                    Op1.foreGroundColor = ConsoleColor.Gray
+                    Op1.colorselect = "Grey"
+                Case "I"
+                    Op1.foreGroundColor = ConsoleColor.DarkGray
+                    Op1.colorselect = "Dark Grey"
+                Case "J"
+                    Op1.foreGroundColor = ConsoleColor.Blue
+                    Op1.colorselect = "Blue"
+                Case "K"
+                    Op1.foreGroundColor = ConsoleColor.Green
+                    Op1.colorselect = "Green"
+                Case "L"
+                    Op1.foreGroundColor = ConsoleColor.Cyan
+                    Op1.colorselect = "Cyan"
+                Case "M"
+                    Op1.foreGroundColor = ConsoleColor.Red
+                    Op1.colorselect = "Red"
+                Case "N"
+                    Op1.foreGroundColor = ConsoleColor.Magenta
+                    Op1.colorselect = "Magenta"
+                Case "O"
+                    Op1.foreGroundColor = ConsoleColor.Yellow
+                    Op1.colorselect = "Yellow"
+                Case "P"
+                    Op1.foreGroundColor = ConsoleColor.White
+                    Op1.colorselect = "White"
+            End Select
+
+            Console.ForegroundColor = Op1.foreGroundColor
+        Loop Until selection = "X"
+        Options()
+
+    End Sub
+
+    'Finished
+    Sub ProgramBackGroundColour()
+
+        Dim selection As Char
+
+        Do
+
+
+            'Draw up the menu
+            Console.Clear()
+            Console.WriteLine("======================================================")
+            Console.WriteLine("|                                                    |")
+            Console.WriteLine("| Program Colour                                     |")
+            Console.WriteLine("|----------------------------------------------------|")
+            Console.WriteLine("| Current Colour: " & Op1.colorselect)
+            Console.WriteLine("|----------------------------------------------------|")
+            Console.WriteLine("| (A) Black                                          |")
+            Console.WriteLine("| (B) Dark Blue                                      |")
+            Console.WriteLine("| (C) Dark Green                                     |")
+            Console.WriteLine("| (D) Dark Cyan                                      |")
+            Console.WriteLine("| (E) Dark Red                                       |")
+            Console.WriteLine("| (F) Dark Magenta                                   |")
+            Console.WriteLine("| (G) Dark Yellow                                    |")
+            Console.WriteLine("| (H) Grey                                           |")
+            Console.WriteLine("| (I) Dark Grey                                      |")
+            Console.WriteLine("| (J) Blue                                           |")
+            Console.WriteLine("| (K) Green                                          |")
+            Console.WriteLine("| (L) Cyan                                           |")
+            Console.WriteLine("| (M) Red                                            |")
+            Console.WriteLine("| (N) Magenta                                        |")
+            Console.WriteLine("| (O) Yellow                                         |")
+            Console.WriteLine("| (P) White                                          |")
+            Console.WriteLine("|----------------------------------------------------|")
+            Console.WriteLine("| (X) Back                                           |")
+            Console.WriteLine("======================================================")
+
+            'Get the selected letter from the user
+            selection = Console.ReadKey(True).KeyChar.ToString.ToUpper
+
+            Select Case selection
+                Case "A"
+                    Op1.backGroundColor = ConsoleColor.Black
+                    Op1.colorselect = "Black"
+                Case "B"
+                    Op1.backGroundColor = ConsoleColor.DarkBlue
+                    Op1.colorselect = "Dark Blue"
+                Case "C"
+                    Op1.backGroundColor = ConsoleColor.DarkGreen
+                    Op1.colorselect = "Dark Green"
+                Case "D"
+                    Op1.backGroundColor = ConsoleColor.DarkCyan
+                    Op1.colorselect = "Dark Cyan"
+                Case "E"
+                    Op1.backGroundColor = ConsoleColor.DarkRed
+                    Op1.colorselect = "Dark Red"
+                Case "F"
+                    Op1.backGroundColor = ConsoleColor.DarkMagenta
+                    Op1.colorselect = "Dark Magenta"
+                Case "G"
+                    Op1.backGroundColor = ConsoleColor.DarkYellow
+                    Op1.colorselect = "Dark Yellow"
+                Case "H"
+                    Op1.backGroundColor = ConsoleColor.Gray
+                    Op1.colorselect = "Grey"
+                Case "I"
+                    Op1.backGroundColor = ConsoleColor.DarkGray
+                    Op1.colorselect = "Dark Grey"
+                Case "J"
+                    Op1.backGroundColor = ConsoleColor.Blue
+                    Op1.colorselect = "Blue"
+                Case "K"
+                    Op1.backGroundColor = ConsoleColor.Green
+                    Op1.colorselect = "Green"
+                Case "L"
+                    Op1.backGroundColor = ConsoleColor.Cyan
+                    Op1.colorselect = "Cyan"
+                Case "M"
+                    Op1.backGroundColor = ConsoleColor.Red
+                    Op1.colorselect = "Red"
+                Case "N"
+                    Op1.backGroundColor = ConsoleColor.Magenta
+                    Op1.colorselect = "Magenta"
+                Case "O"
+                    Op1.backGroundColor = ConsoleColor.Yellow
+                    Op1.colorselect = "Yellow"
+                Case "P"
+                    Op1.backGroundColor = ConsoleColor.White
+                    Op1.colorselect = "White"
+            End Select
+
+            Console.BackgroundColor = Op1.backGroundColor
+        Loop Until selection = "X"
+        Options()
+
+    End Sub
+
+    'Finished
     Sub Main()
 
         Loading()
@@ -649,6 +899,49 @@
 
 
         FileClose(1)
+
+    End Sub
+
+    'Finished
+    Sub SaveOptions()
+
+        'Save the students to a text file
+        FileOpen(3, "Options.txt", OpenMode.Output)
+
+        'Fill the file
+        PrintLine(3, Op1.backGroundColor)
+        PrintLine(3, Op1.foreGroundColor)
+        PrintLine(3, Op1.colorselect)
+        PrintLine(3, Op1.forecolorselect)
+
+
+
+        FileClose(3)
+
+    End Sub
+
+    'Finished
+    Sub LoadOptions()
+
+        'Check if the file exists
+        If IO.File.Exists("Options.txt") Then
+
+            'Open the file for reading
+            FileOpen(3, "Options.txt", OpenMode.Input)
+
+
+
+
+
+            Op1.backGroundColor = LineInput(3)
+            Op1.foreGroundColor = LineInput(3)
+            Op1.colorselect = LineInput(3)
+            Op1.forecolorselect = LineInput(3)
+
+            'Close our file
+            FileClose(3)
+
+        End If
 
     End Sub
 

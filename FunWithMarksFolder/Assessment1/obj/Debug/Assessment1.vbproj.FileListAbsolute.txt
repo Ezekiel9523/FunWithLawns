@@ -8,3 +8,12 @@ H:\VB\Fun With Lawns Old\FunWithMarksFolder\Assessment1\obj\Debug\Assessment1.vb
 H:\VB\Fun With Lawns Old\FunWithMarksFolder\Assessment1\obj\Debug\Assessment1.exe
 H:\VB\Fun With Lawns Old\FunWithMarksFolder\Assessment1\obj\Debug\Assessment1.xml
 H:\VB\Fun With Lawns Old\FunWithMarksFolder\Assessment1\obj\Debug\Assessment1.pdb
+C:\Users\William\Desktop\FunWithLawns\FunWithLawns\FunWithMarksFolder\Assessment1\bin\Debug\Assessment1.exe.config
+C:\Users\William\Desktop\FunWithLawns\FunWithLawns\FunWithMarksFolder\Assessment1\obj\Debug\Assessment1.exe
+C:\Users\William\Desktop\FunWithLawns\FunWithLawns\FunWithMarksFolder\Assessment1\obj\Debug\Assessment1.xml
+C:\Users\William\Desktop\FunWithLawns\FunWithLawns\FunWithMarksFolder\Assessment1\obj\Debug\Assessment1.pdb
+C:\Users\William\Desktop\FunWithLawns\FunWithLawns\FunWithMarksFolder\Assessment1\bin\Debug\Assessment1.exe
+C:\Users\William\Desktop\FunWithLawns\FunWithLawns\FunWithMarksFolder\Assessment1\bin\Debug\Assessment1.pdb
+C:\Users\William\Desktop\FunWithLawns\FunWithLawns\FunWithMarksFolder\Assessment1\bin\Debug\Assessment1.xml
+C:\Users\William\Desktop\FunWithLawns\FunWithLawns\FunWithMarksFolder\Assessment1\obj\Debug\Assessment1.Resources.resources
+C:\Users\William\Desktop\FunWithLawns\FunWithLawns\FunWithMarksFolder\Assessment1\obj\Debug\Assessment1.vbproj.GenerateResource.Cache
