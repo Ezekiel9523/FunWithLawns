@@ -13,8 +13,8 @@
     Dim Bookings As New List(Of Booking)
 
     Class Option1
-        Public foreGroundColor As ConsoleColor
-        Public backGroundColor As ConsoleColor
+        Public foreGroundColor As ConsoleColor = ConsoleColor.Gray
+        Public backGroundColor As ConsoleColor = ConsoleColor.Black
         Public forecolorselect As String
         Public colorselect As String
     End Class
@@ -152,28 +152,21 @@
             'Draw up the menu
             Console.Clear()
             Console.WriteLine("======================================================")
-            Console.SetCursorPosition(53, 1)
-            Console.WriteLine("|")
+            Console.SetCursorPosition(20, 1)
+            Console.WriteLine("Local Clock: " & Now.ToString("H:mm tt - dd/MM/yy") & " |")
             Console.SetCursorPosition(0, 1)
             Console.WriteLine("| Welcome " & Pro1.COwner)
             Console.WriteLine("|----------------------------------------------------|")
             Console.SetCursorPosition(53, 3)
             Console.WriteLine("|")
             Console.SetCursorPosition(0, 3)
-            Console.WriteLine("| Local Clock: " & Now.ToString("dd/MM/yyyy H:mm tt"))
-            Console.WriteLine("|----------------------------------------------------|")
-            Console.SetCursorPosition(53, 5)
-            Console.WriteLine("|")
-            Console.SetCursorPosition(0, 5)
             Console.WriteLine("| Total completed hours: " & Pro1.CompleteHours)
-            Console.SetCursorPosition(53, 6)
+            Console.SetCursorPosition(53, 4)
             Console.WriteLine("|")
-            Console.SetCursorPosition(0, 6)
+            Console.SetCursorPosition(0, 4)
             Console.WriteLine("| Total income:         " & FormatCurrency(Pay))
             Console.WriteLine("|----------------------------------------------------|")
-            Console.WriteLine("|                                                    |")
             Console.WriteLine("| Select from one of the following menu options:     |")
-            Console.WriteLine("|                                                    |")
             Console.WriteLine("|----------------------------------------------------|")
             Console.WriteLine("| (A) Add a booking                                  |")
             Console.WriteLine("| (B) View all incomplete bookings                   |")
@@ -654,6 +647,7 @@
             Console.WriteLine("| (A) Edit Company Details                           |")
             Console.WriteLine("| (B) BackGround Colour                              |")
             Console.WriteLine("| (C) ForeGround Colour                              |")
+            Console.WriteLine("| (D) Reboot                                         |")
             Console.WriteLine("|----------------------------------------------------|")
             Console.WriteLine("| (X) Back                                           |")
             Console.WriteLine("======================================================")
@@ -668,6 +662,8 @@
                     ProgramBackGroundColour()
                 Case "C"
                     ProgramForeGroundColour()
+                Case "D"
+                    Reboot()
             End Select
 
         Loop Until selection = "X"
@@ -882,6 +878,75 @@
         LoadBookings()
 
         Menu()
+    End Sub
+
+    Sub Reboot()
+
+        Dim i As String
+
+        Console.Clear()
+
+        Console.SetCursorPosition(20, 5)
+        Console.WriteLine("Warning! Reboot will delete all saved data!")
+        Console.SetCursorPosition(25, 6)
+        Console.Write("Do you wish to continue (y/n)")
+
+        i = Console.ReadKey(True).KeyChar.ToString.ToUpper
+
+        If i = "Y" Then
+
+            Console.Clear()
+
+            Console.WriteLine("Rebooting")
+            Threading.Thread.Sleep(500)
+            Console.Write(".")
+            Threading.Thread.Sleep(500)
+            Console.Write(".")
+            Threading.Thread.Sleep(500)
+            Console.WriteLine(".")
+            Threading.Thread.Sleep(1000)
+
+            Console.WriteLine("Deleting Company Data")
+            IO.File.Delete("CompanyData.txt")
+            Threading.Thread.Sleep(100)
+            Console.WriteLine("_")
+            Threading.Thread.Sleep(100)
+            Console.WriteLine("_")
+            Console.WriteLine("Deleting Booking Data")
+            IO.File.Delete("BookingData.txt")
+            Threading.Thread.Sleep(100)
+            Console.WriteLine("_")
+            Threading.Thread.Sleep(100)
+            Console.WriteLine("_")
+            Console.WriteLine("Options Booking Data")
+            IO.File.Delete("Options.txt")
+            Threading.Thread.Sleep(100)
+            Console.WriteLine("_")
+            Threading.Thread.Sleep(100)
+            Console.WriteLine("_")
+            Console.WriteLine("Reboot Finished")
+            Threading.Thread.Sleep(100)
+            Console.WriteLine("Press any key to continue...")
+            Console.ReadKey(True)
+            Console.BackgroundColor = ConsoleColor.Black
+            Console.ForegroundColor = ConsoleColor.Gray
+
+
+            End
+
+        Else
+
+            Console.Clear()
+
+            Console.WriteLine("Exiting")
+            Threading.Thread.Sleep(500)
+            Menu()
+        End If
+
+        
+
+      
+
     End Sub
 
     'Finished
